@@ -1,0 +1,236 @@
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html { box-sizing: border-box; }
+
+.container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 1s linear;
+  position: relative;
+  
+  &.color {
+    background: #373737;
+  }
+}
+
+.sun-box, .moon-box { position: relative; transition: all 1s ease; }
+.sun-box {
+  &.move {
+    transform: rotate(-15deg) translate(50px, 50px);
+  }
+}
+.moon-box {
+  &.move {
+  transform: rotate(-15deg) translateX(50px);
+  }
+}
+.sun {
+  position: absolute;
+  top: -60px;
+  left: -20px;
+  width: 20px;
+  height: 20px;
+  background: #ffd64d;
+  &::before {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: inherit;
+    transform: rotate(45deg);
+  }
+}
+
+.moon {
+  position: absolute;
+  top: -10px;
+  left: 140px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  box-shadow: -5px 1px 0 4px #ba93e7;
+  background: rgba(255,255,255,0);
+}
+
+.btn {
+  width: 180px;
+  height: 90px;
+  position: relative;
+  
+  &__background {
+    position: fixed;
+    width: 180px;
+    height: 90px;
+    border-radius: 50px;
+    background: #FFB74D;
+    cursor: pointer;
+    transition: all 1s ease;
+    
+    &.color {
+      background: #893fd7;
+    }
+  }
+  
+  &__face {
+    position: absolute;
+    top: 9px;
+    left: 9px;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 1px 3px 3px 0 rgba(0, 0, 0, .2);
+    transition: all 1s cubic-bezier(0.645, 0.045, 0.355, 1);
+    
+    &.move {
+      transform: translateX(90px);
+    }
+  }
+  
+  &__eye-left,
+  &__eye-right {
+    position: absolute;
+    top: 23px;
+    width: 5px;
+    height: 15px;
+    background: #FFB74D;
+    border-radius: 30%;
+    transition: all 1s ease;
+    
+    &.open {
+      animation: moving 3s ease infinite;
+      background: #FFB74D;
+    }
+    
+    &.close {
+      transform: scaleY(.2) scaleX(2) translateY(14px);
+      transform-origin: center;
+      transition: all 1s ease;
+      background: #893fd7;
+    }
+  }
+  
+  &__eye-left { left: 20px; }
+  &__eye-right { left: 46px; }
+  
+  &__mouth { 
+    position: absolute;
+    top: 46px;
+    left: 21px;
+    width: 30px;
+    height: 12px;
+    border-bottom-left-radius: 90px;
+    border-bottom-right-radius: 90px;
+    background: #FFB74D;
+    transition: all 1s ease;
+    
+    
+    &.close {
+      transform: scale(.2, .6);
+      transform-origin: center;
+      border-radius: 50%;
+      background: #893fd7;
+    }
+  }
+  
+  &__animation {
+    &.move {
+      animation: rotate .5s ease forwards;
+    }
+    
+    &.move-reverse {
+      animation: rotate-reverse .5s ease forwards;
+    }
+  }
+}
+
+/* BLINK EYES LIGHT MODE*/
+@keyframes moving {
+  0% {
+    transform: scaleY(1);
+    transform-origin: center;
+  }
+  
+  5% {
+    transform: scaleY(.1);
+    transform-origin: center;
+  }
+  
+  9% {
+    transform: scaleY(1);
+    transform-origin: center;
+  }
+  
+  100% {
+    transform: scaleY(1);
+    transform-origin: center;
+  }
+}
+
+/* ROTATE THE FACE TO THE RIGHT */
+@-webkit-keyframes rotate {
+  0% {
+    transform: rotate(0deg) translate(0px, 0px);
+  }
+  
+  10% {
+    opacity: .2;
+  }
+
+  40% {
+    transform: rotate(0deg) translate(80px, 0px);
+    opacity: 0;
+  }
+
+  60% {
+    transform: rotate(360deg) translate(-80px, 0px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: rotate(360deg) translate(0px, 0px);
+    opacity: 1;
+  }
+}
+
+/* ROTATE THE FACE TO THE LEFT */
+@-webkit-keyframes rotate-reverse {
+  0% {
+    transform: rotate(0deg) translate(0px, 0px);
+    
+  }
+  
+  10% {
+    opacity: .2;
+  }
+
+  40% {
+    transform: rotate(0deg) translate(-80px, 0px);
+    opacity: 0;
+  }
+
+  60% {
+    transform: rotate(360deg) translate(80px, 0px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: rotate(360deg) translate(0px, 0px);
+    backface-visibility: hidden;
+    opacity: 1;
+  }
+}
+
+ion-icon {
+  position: fixed;
+  font-size: 36px;
+  right: 20px;
+  bottom: 20px;
+  color: #EA4C89;
+}
